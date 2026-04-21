@@ -312,7 +312,6 @@ ${form.namn}`;
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left: Text */}
             <div className="lg:col-span-7 reveal">
-              </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-slate-900 leading-[1.05]" data-testid="hero-headline">
                 Skinande rent,<br />
                 <span className="font-medium">utan krångel.</span>

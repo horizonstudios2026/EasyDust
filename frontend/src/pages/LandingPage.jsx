@@ -483,16 +483,16 @@ ${form.namn}`;
                   style={{ animationDelay: `${i * 0.05}s` }}
                 >
                   {/* Uniform image header for every card */}
-                  <div className="relative h-36 overflow-hidden bg-slate-100">
+                  <div className="relative h-36 overflow-hidden bg-blue-900">
                     <img
                       src={s.image}
                       alt={s.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      style={{ filter: "saturate(0.55) brightness(1.05) contrast(0.95)" }}
+                      style={{ filter: "saturate(0.3) brightness(0.85) contrast(1.05)" }}
                     />
-                    {/* Subtle cohesive blue tint overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-slate-900/10 mix-blend-multiply" />
-                    <div className="absolute inset-0 bg-blue-50/20" />
+                    {/* Strong cohesive blue tint overlay */}
+                    <div className="absolute inset-0 bg-blue-700/40 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-blue-600/20 to-blue-800/40" />
                     <div className="absolute top-3 left-3 w-10 h-10 rounded-lg bg-white/95 backdrop-blur-md border border-white shadow-md flex items-center justify-center">
                       <Icon size={18} className="text-blue-600" />
                     </div>

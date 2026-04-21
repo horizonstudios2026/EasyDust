@@ -85,6 +85,7 @@ const services = [
     desc: "Djupgående städning – perfekt inför högtider eller gäster.",
     price: "fr. 1 290 kr",
     icon: Sparkles,
+    image: "https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=940",
     size: "sm",
   },
   {
@@ -93,6 +94,7 @@ const services = [
     desc: "Regelbunden städning av trapphus för bostadsrättsföreningar.",
     price: "fr. offert",
     icon: Brush,
+    image: "https://images.pexels.com/photos/7587366/pexels-photo-7587366.jpeg?auto=compress&cs=tinysrgb&w=940",
     size: "sm",
   },
   {
@@ -101,6 +103,7 @@ const services = [
     desc: "Efter renovering eller nybygge – vi tar bort damm, spill och smuts.",
     price: "fr. 1 890 kr",
     icon: HardHat,
+    image: "https://images.pexels.com/photos/5691660/pexels-photo-5691660.jpeg?auto=compress&cs=tinysrgb&w=940",
     size: "sm",
   },
   {
@@ -118,6 +121,7 @@ const services = [
     desc: "Få hemmet att sälja sig självt – skarp städning inför visning.",
     price: "fr. 990 kr",
     icon: Eye,
+    image: "https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg?auto=compress&cs=tinysrgb&w=940",
     size: "sm",
   },
 ];
@@ -488,29 +492,25 @@ ${form.namn}`;
                 >
                   {/* Uniform image header for every card */}
                   <div className="relative h-40 overflow-hidden bg-slate-100">
-                    {s.image ? (
-                      <img
-                        src={s.image}
-                        alt={s.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100/60" />
-                    )}
+                    <img
+                      src={s.image}
+                      alt={s.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                     <div className="absolute top-4 left-4 w-11 h-11 rounded-xl bg-white/95 backdrop-blur-md border border-white shadow-md flex items-center justify-center">
                       <Icon size={20} className="text-blue-600" />
                     </div>
                   </div>
 
                   {/* Consistent text body */}
-                  <div className="flex-1 flex flex-col p-6 md:p-7">
-                    <h3 className="font-display text-xl font-semibold text-slate-900 mb-2">
+                  <div className="flex-1 flex flex-col p-5">
+                    <h3 className="font-display text-xl font-semibold text-slate-900 mb-1.5">
                       {s.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-slate-600 mb-5 flex-1">
+                    <p className="text-sm leading-snug text-slate-600 mb-4 flex-1">
                       {s.desc}
                     </p>
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <div className="flex items-center justify-between pt-3 border-t border-slate-100">
                       <span className="text-sm font-semibold text-blue-600">{s.price}</span>
                       <ArrowRight size={16} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
                     </div>

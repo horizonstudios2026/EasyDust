@@ -56,73 +56,65 @@ const services = [
     key: "hemstad",
     title: "Hemstäd",
     desc: "Regelbunden städning av ditt hem – dammsugning, moppning, kök & badrum.",
-    price: "fr. 295 kr/tim",
+    price: "Begär offert",
     icon: Home,
     image: IMG.hemstad,
-    size: "lg",
   },
   {
     key: "foretag",
     title: "Företagsstäd",
     desc: "Professionell lokalvård för kontor, butiker och verksamheter.",
-    price: "fr. offert",
+    price: "Begär offert",
     icon: Building2,
-    image: IMG.foretag,
-    size: "md",
+    image: "https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg?auto=compress&cs=tinysrgb&w=940",
   },
   {
     key: "flytt",
     title: "Flyttstäd",
     desc: "Garanterad flyttstäd – godkänd av mäklare, annars städar vi om.",
-    price: "fr. 1 690 kr",
+    price: "Begär offert",
     icon: Box,
     image: IMG.flytt,
-    size: "md",
   },
   {
     key: "storstad",
     title: "Storstäd",
     desc: "Djupgående städning – perfekt inför högtider eller gäster.",
-    price: "fr. 1 290 kr",
+    price: "Begär offert",
     icon: Sparkles,
-    image: "https://images.pexels.com/photos/4239091/pexels-photo-4239091.jpeg?auto=compress&cs=tinysrgb&w=940",
-    size: "sm",
+    image: "https://images.pexels.com/photos/2121121/pexels-photo-2121121.jpeg?auto=compress&cs=tinysrgb&w=940",
   },
   {
     key: "trapp",
     title: "Trapphusstäd",
     desc: "Regelbunden städning av trapphus för bostadsrättsföreningar.",
-    price: "fr. offert",
+    price: "Begär offert",
     icon: Brush,
-    image: "https://images.pexels.com/photos/7587366/pexels-photo-7587366.jpeg?auto=compress&cs=tinysrgb&w=940",
-    size: "sm",
+    image: "https://images.pexels.com/photos/1571470/pexels-photo-1571470.jpeg?auto=compress&cs=tinysrgb&w=940",
   },
   {
     key: "bygg",
     title: "Byggstäd",
     desc: "Efter renovering eller nybygge – vi tar bort damm, spill och smuts.",
-    price: "fr. 1 890 kr",
+    price: "Begär offert",
     icon: HardHat,
-    image: "https://images.pexels.com/photos/5691660/pexels-photo-5691660.jpeg?auto=compress&cs=tinysrgb&w=940",
-    size: "sm",
+    image: "https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=940",
   },
   {
     key: "fonster",
     title: "Fönsterputs",
     desc: "Kristallklara fönster in- och utvändigt, karmar inkluderade.",
-    price: "fr. 390 kr",
+    price: "Begär offert",
     icon: Wind,
     image: IMG.fonster,
-    size: "md",
   },
   {
     key: "visning",
     title: "Visningsstädning",
     desc: "Få hemmet att sälja sig självt – skarp städning inför visning.",
-    price: "fr. 990 kr",
+    price: "Begär offert",
     icon: Eye,
-    image: "https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg?auto=compress&cs=tinysrgb&w=940",
-    size: "sm",
+    image: "https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=940",
   },
 ];
 
@@ -491,28 +483,32 @@ ${form.namn}`;
                   style={{ animationDelay: `${i * 0.05}s` }}
                 >
                   {/* Uniform image header for every card */}
-                  <div className="relative h-40 overflow-hidden bg-slate-100">
+                  <div className="relative h-36 overflow-hidden bg-slate-100">
                     <img
                       src={s.image}
                       alt={s.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      style={{ filter: "saturate(0.55) brightness(1.05) contrast(0.95)" }}
                     />
-                    <div className="absolute top-4 left-4 w-11 h-11 rounded-xl bg-white/95 backdrop-blur-md border border-white shadow-md flex items-center justify-center">
-                      <Icon size={20} className="text-blue-600" />
+                    {/* Subtle cohesive blue tint overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-slate-900/10 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-blue-50/20" />
+                    <div className="absolute top-3 left-3 w-10 h-10 rounded-lg bg-white/95 backdrop-blur-md border border-white shadow-md flex items-center justify-center">
+                      <Icon size={18} className="text-blue-600" />
                     </div>
                   </div>
 
-                  {/* Consistent text body */}
-                  <div className="flex-1 flex flex-col p-5">
-                    <h3 className="font-display text-xl font-semibold text-slate-900 mb-1.5">
+                  {/* Compact text body */}
+                  <div className="flex-1 flex flex-col px-4 py-3.5">
+                    <h3 className="font-display text-lg font-semibold text-slate-900 mb-1 leading-tight">
                       {s.title}
                     </h3>
-                    <p className="text-sm leading-snug text-slate-600 mb-4 flex-1">
+                    <p className="text-[13px] leading-snug text-slate-600 mb-3 flex-1">
                       {s.desc}
                     </p>
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-100">
+                    <div className="flex items-center justify-between pt-2.5 border-t border-slate-100">
                       <span className="text-sm font-semibold text-blue-600">{s.price}</span>
-                      <ArrowRight size={16} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+                      <ArrowRight size={14} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
                     </div>
                   </div>
                 </div>

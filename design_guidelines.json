@@ -1,0 +1,136 @@
+{
+  "theme": "light",
+  "archetype": "Archetype 1 (Organic & Earthy - Clean Variation)",
+  "design_philosophy": "Scandinavian minimalism meeting trustworthy corporate design. Heavy focus on negative space, breathable layouts, and functional 'Lugn blå' (calm blue) accents to inspire trust and cleanliness. Combines the 'Tetris' bento grid for services to avoid generic SaaS repetition, using a mix of high-quality photography and crisp icons.",
+  "colors": {
+    "background": "#FAFAFA",
+    "surface": "#FFFFFF",
+    "primary": "#2563EB",
+    "primary_hover": "#1D4ED8",
+    "primary_light": "#EFF6FF",
+    "text_main": "#0F172A",
+    "text_muted": "#475569",
+    "border": "#E2E8F0",
+    "accent_subtle": "#DBEAFE"
+  },
+  "typography": {
+    "font_family_headings": "Outfit, sans-serif",
+    "font_family_body": "Manrope, sans-serif",
+    "h1": "text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-slate-900",
+    "h2": "text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-slate-900",
+    "h3": "text-xl md:text-2xl font-medium tracking-tight text-slate-900",
+    "body": "text-base md:text-lg text-slate-600 leading-relaxed",
+    "overline": "text-xs font-bold uppercase tracking-[0.2em] text-blue-600"
+  },
+  "spacing_and_layout": {
+    "section_padding": "py-24 md:py-32",
+    "container_width": "max-w-7xl mx-auto px-6 md:px-12",
+    "bento_gap": "gap-6 md:gap-8",
+    "card_padding": "p-8 md:p-12",
+    "border_radius": "rounded-3xl"
+  },
+  "surfaces_and_shadows": {
+    "glass_header": "bg-white/80 backdrop-blur-xl border-b border-slate-200/50",
+    "card_default": "bg-white border border-slate-200 shadow-sm",
+    "card_hover": "hover:-translate-y-1 hover:shadow-xl hover:border-blue-200 transition-all duration-300",
+    "image_overlay": "bg-black/20"
+  },
+  "sections": [
+    {
+      "name": "Header",
+      "style": "Fixed to top, z-50, glass_header. Logo on left (EasyDust in Outfit font, bold). Navigation links centered. 'Få offert' button on right.",
+      "components": ["Navigation", "Button"]
+    },
+    {
+      "name": "Hero",
+      "style": "A massive, asymmetrical layout. Left side: Text content (H1: 'Skinande rent, utan krångel.', Subtitle, Trust badges). Right side: Large featured image spanning full height of hero section with rounded-l-3xl edge. Overlapping the bottom center/left is the Lead Form enclosed in a crisp white card with soft shadow.",
+      "components": ["Form", "Input", "Textarea", "Button"]
+    },
+    {
+      "name": "Value Proposition",
+      "style": "Horizontal band with subtle blue background (bg-blue-50/50) highlighting trust: 'Kollektivavtal', 'Ansvarsförsäkring', 'Nöjd-kund-garanti'. Huge spacing between items.",
+      "components": []
+    },
+    {
+      "name": "Services (Bento Grid)",
+      "style": "Mode A 'Tetris' grid. Mix of sizes. Hemstäd (Large, photo background), Företagsstäd (Large, solid white with blue icon), Flyttstäd (Medium, photo), Storstäd (Medium, icon), Trapphusstäd (Small, icon), Byggstäd (Small, icon), Fönsterputs (Medium, photo), Visningsstädning (Small, icon). Each card has h3 and short description.",
+      "components": ["Card", "Lucide Icons"]
+    },
+    {
+      "name": "CTA Section",
+      "style": "Deep calm blue background (bg-slate-900) with text in white. 'Redo för ett renare hem?'. Button scrolls up to the hero form.",
+      "components": ["Button"]
+    },
+    {
+      "name": "Testimonials",
+      "style": "Horizontal scrolling or 3-column grid. Clean white cards, soft borders. Smiling customer portraits. 5-star icons.",
+      "components": ["Card"]
+    },
+    {
+      "name": "FAQ",
+      "style": "Minimalist accordion. No borders on sides, just a clean bottom line for each item. Generous padding.",
+      "components": ["Accordion"]
+    },
+    {
+      "name": "Footer",
+      "style": "Massive typography for Contact Info. 'Säg hej.' at text-5xl. Phone: 070-712 22 38 (clickable), Email: ivicaikica81@gmail.com (mailto). Very clean, minimal links.",
+      "components": []
+    }
+  ],
+  "components": {
+    "button": "Rounded-full px-8 py-4 font-medium transition-all duration-300. Primary: bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/25. Secondary: bg-white text-slate-900 border border-slate-200 hover:border-slate-300.",
+    "input": "Rounded-xl border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all h-12",
+    "form_behavior": "Since no backend is required, use standard HTML form with action='mailto:ivicaikica81@gmail.com' and method='post' encType='text/plain', OR use a JavaScript fallback that opens window.location.href = 'mailto:...'"
+  },
+  "media": {
+    "images": [
+      {
+        "category": "hero",
+        "description": "Main hero background, clean scandinavian living room",
+        "url": "https://static.prod-images.emergentagent.com/jobs/4ebc6054-84d1-4704-a616-e6ea9722ce0d/images/9e301934e1e45b37361a276a8cafed3c3f701fc564b1008ee1f7e6ade6320e08.png"
+      },
+      {
+        "category": "service_hemstad",
+        "description": "Clean kitchen for Hemstäd service card",
+        "url": "https://static.prod-images.emergentagent.com/jobs/4ebc6054-84d1-4704-a616-e6ea9722ce0d/images/d8c938d83ca10c96eee66e84b6c59dd55c93746a1fc91f012136742a808947b1.png"
+      },
+      {
+        "category": "service_foretagsstad",
+        "description": "Clean modern office for Företagsstäd service card",
+        "url": "https://static.prod-images.emergentagent.com/jobs/4ebc6054-84d1-4704-a616-e6ea9722ce0d/images/69d6409436ae4ece6fbf8ca8f70fd227839de8a7d9928990806f772ef6768393.png"
+      },
+      {
+        "category": "service_flyttstad",
+        "description": "Moving boxes for Flyttstäd service card",
+        "url": "https://images.pexels.com/photos/4569338/pexels-photo-4569338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "category": "service_fonsterputs",
+        "description": "Clean window for Fönsterputs service card",
+        "url": "https://images.pexels.com/photos/6195113/pexels-photo-6195113.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "category": "testimonial_1",
+        "description": "Portrait for testimonial",
+        "url": "https://images.pexels.com/photos/33973872/pexels-photo-33973872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "category": "testimonial_2",
+        "description": "Portrait for testimonial",
+        "url": "https://images.pexels.com/photos/3936894/pexels-photo-3936894.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      }
+    ],
+    "icons_library": "lucide-react"
+  },
+  "testing": {
+    "attributes": "All buttons, inputs, accordion triggers, and form submits MUST have data-testid attributes (e.g., data-testid='hero-form-submit')."
+  },
+  "instructions_to_main_agent": [
+    "1. Setup Shadcn components: button, input, textarea, label, accordion.",
+    "2. Add 'Outfit' and 'Manrope' fonts via Google Fonts in index.html.",
+    "3. Build the Hero section with the form embedded on the page, not in a modal. Form should use JS to construct a mailto link with the form data when submitted, opening the user's email client.",
+    "4. For the Services Grid, implement a responsive Bento layout using CSS Grid where some cards span 2 columns/rows. Mix the provided photos (using object-cover) and lucide icons (Sparkles, Building2, Box, etc).",
+    "5. Use generous spacing (py-24 or py-32) between major sections.",
+    "6. Apply 'data-testid' to all interactive elements."
+  ]
+}

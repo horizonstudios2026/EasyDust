@@ -313,7 +313,7 @@ ${form.namn}`;
             {/* Left: Text */}
             <div className="lg:col-span-7 reveal">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase mb-6 border border-blue-100" data-testid="hero-badge">
-                <Sparkles size={14} /> Stockholms nöjdaste kunder 2024
+                <Sparkles size={14} /> Helsingborgs nöjdaste kunder 2024
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-slate-900 leading-[1.05]" data-testid="hero-headline">
                 Skinande rent,<br />
@@ -651,7 +651,7 @@ ${form.namn}`;
               <div>
                 <div className="font-display text-3xl font-bold mb-4">Easy<span className="text-blue-400">Dust</span></div>
                 <p className="text-slate-400 text-sm leading-relaxed mb-8">
-                  Professionell städning i Stockholm. Kollektivavtal, ansvarsförsäkring och nöjd-kund-garanti.
+                  Professionell städning i Helsingborg. Kollektivavtal, ansvarsförsäkring och nöjd-kund-garanti.
                 </p>
                 <Button
                   onClick={scrollToForm}
@@ -662,9 +662,9 @@ ${form.namn}`;
                 </Button>
               </div>
               <div className="mt-12 pt-6 border-t border-white/10 text-xs text-slate-500 flex flex-wrap gap-x-6 gap-y-2">
-                <span>© {new Date().getFullYear()} EasyDust AB</span>
-                <span>Org.nr 559000-0000</span>
-                <span>Stockholm, Sverige</span>
+                <span>© {new Date().getFullYear()} Smakrull AB</span>
+                <span>Org.nr 559503-5345</span>
+                <span>Helsingborg, Sverige</span>
               </div>
             </div>
           </div>

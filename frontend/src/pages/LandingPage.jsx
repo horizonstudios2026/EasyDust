@@ -476,48 +476,43 @@ ${form.namn}`;
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 auto-rows-[220px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {services.map((s, i) => {
-              const hasImage = !!s.image;
-              const spanClass =
-                s.size === "lg"
-                  ? "md:col-span-2 md:row-span-2"
-                  : s.size === "md"
-                  ? "md:col-span-2"
-                  : "";
               const Icon = s.icon;
               return (
                 <div
                   key={s.key}
-                  className={`group relative rounded-3xl border border-slate-200 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-blue-200 ${spanClass} ${hasImage ? "service-card-photo" : ""}`}
+                  className="group relative rounded-3xl border border-slate-200 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-blue-200 flex flex-col"
                   data-testid={`service-card-${s.key}`}
                   style={{ animationDelay: `${i * 0.05}s` }}
                 >
-                  {hasImage && (
-                    <img
-                      src={s.image}
-                      alt={s.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  )}
-                  <div className={`relative z-10 h-full flex flex-col justify-between p-6 md:p-7 ${hasImage ? "text-white" : "text-slate-900"}`}>
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${hasImage ? "bg-white/25 backdrop-blur-md border border-white/40 shadow-lg" : "bg-blue-50 border border-blue-100"}`}>
-                      <Icon size={20} className={hasImage ? "text-white" : "text-blue-600"} />
+                  {/* Uniform image header for every card */}
+                  <div className="relative h-40 overflow-hidden bg-slate-100">
+                    {s.image ? (
+                      <img
+                        src={s.image}
+                        alt={s.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100/60" />
+                    )}
+                    <div className="absolute top-4 left-4 w-11 h-11 rounded-xl bg-white/95 backdrop-blur-md border border-white shadow-md flex items-center justify-center">
+                      <Icon size={20} className="text-blue-600" />
                     </div>
-                    <div>
-                      <h3 className={`font-display text-xl md:text-2xl font-semibold mb-1.5 ${hasImage ? "text-white photo-card-text" : "text-slate-900"}`}>
-                        {s.title}
-                      </h3>
-                      <p className={`text-sm leading-relaxed ${hasImage ? "text-white photo-card-text" : "text-slate-600"}`}>
-                        {s.desc}
-                      </p>
-                      <div className="mt-3">
-                        {hasImage ? (
-                          <span className="price-pill">{s.price}</span>
-                        ) : (
-                          <span className="text-sm font-semibold text-blue-600">{s.price}</span>
-                        )}
-                      </div>
+                  </div>
+
+                  {/* Consistent text body */}
+                  <div className="flex-1 flex flex-col p-6 md:p-7">
+                    <h3 className="font-display text-xl font-semibold text-slate-900 mb-2">
+                      {s.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-slate-600 mb-5 flex-1">
+                      {s.desc}
+                    </p>
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                      <span className="text-sm font-semibold text-blue-600">{s.price}</span>
+                      <ArrowRight size={16} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
                     </div>
                   </div>
                 </div>

@@ -499,19 +499,23 @@ ${form.namn}`;
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   )}
-                  <div className={`relative h-full flex flex-col justify-between p-6 md:p-7 ${hasImage ? "text-white" : "text-slate-900"}`}>
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${hasImage ? "bg-white/20 backdrop-blur-md border border-white/30" : "bg-blue-50 border border-blue-100"}`}>
+                  <div className={`relative z-10 h-full flex flex-col justify-between p-6 md:p-7 ${hasImage ? "text-white" : "text-slate-900"}`}>
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${hasImage ? "bg-white/25 backdrop-blur-md border border-white/40 shadow-lg" : "bg-blue-50 border border-blue-100"}`}>
                       <Icon size={20} className={hasImage ? "text-white" : "text-blue-600"} />
                     </div>
                     <div>
-                      <h3 className={`font-display text-xl md:text-2xl font-medium mb-1.5 ${hasImage ? "text-white" : "text-slate-900"}`}>
+                      <h3 className={`font-display text-xl md:text-2xl font-semibold mb-1.5 ${hasImage ? "text-white photo-card-text" : "text-slate-900"}`}>
                         {s.title}
                       </h3>
-                      <p className={`text-sm leading-relaxed ${hasImage ? "text-white/90" : "text-slate-600"}`}>
+                      <p className={`text-sm leading-relaxed ${hasImage ? "text-white photo-card-text" : "text-slate-600"}`}>
                         {s.desc}
                       </p>
-                      <div className={`mt-3 text-sm font-semibold ${hasImage ? "text-white" : "text-blue-600"}`}>
-                        {s.price}
+                      <div className="mt-3">
+                        {hasImage ? (
+                          <span className="price-pill">{s.price}</span>
+                        ) : (
+                          <span className="text-sm font-semibold text-blue-600">{s.price}</span>
+                        )}
                       </div>
                     </div>
                   </div>

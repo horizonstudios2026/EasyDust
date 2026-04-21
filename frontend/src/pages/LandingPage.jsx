@@ -434,29 +434,125 @@ ${form.namn}`;
       </section>
 
       {/* ===== VALUE PROP BAND ===== */}
-      <section className="bg-blue-50/60 border-y border-blue-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-14">
-          <div className="grid md:grid-cols-4 gap-8 md:gap-12">
-            {[
-              { icon: Clock, title: "Snabb bokning", desc: "Svar inom 2 timmar" },
-              { icon: Award, title: "Erfarna städare", desc: "Utbildad personal" },
-              { icon: ShieldCheck, title: "Fullt försäkrat", desc: "Kollektivavtal & försäkring" },
-              { icon: Check, title: "Flexibla tider", desc: "Kvällar & helger möjligt" },
-            ].map((v) => (
-              <div key={v.title} className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-white border border-blue-100 flex items-center justify-center shrink-0">
-                  <v.icon size={20} className="text-blue-600" />
+      import { useState, useEffect } from "react";
+
+const Clock = ({ size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+  </svg>
+);
+const Award = ({ size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+  </svg>
+);
+const ShieldCheck = ({ size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+  </svg>
+);
+const CheckIcon = ({ size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="8 14 10 16 16 13"/>
+  </svg>
+);
+
+const values = [
+  { icon: Clock, title: "Snabb bokning", desc: "Svar inom 2 timmar", accent: "#2563eb", bg: "rgba(37,99,235,0.08)" },
+  { icon: Award, title: "Erfarna städare", desc: "Utbildad personal", accent: "#0891b2", bg: "rgba(8,145,178,0.08)" },
+  { icon: ShieldCheck, title: "Fullt försäkrat", desc: "Kollektivavtal & försäkring", accent: "#059669", bg: "rgba(5,150,105,0.08)" },
+  { icon: CheckIcon, title: "Flexibla tider", desc: "Kvällar & helger möjligt", accent: "#7c3aed", bg: "rgba(124,58,237,0.08)" },
+];
+
+export default function ValuePropBand() {
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=DM+Sans:wght@400;500&display=swap');
+
+        .vpb-section {
+          background: #f8faff;
+          border-top: 1px solid #e0e7ff;
+          border-bottom: 1px solid #e0e7ff;
+          padding: 56px 24px;
+          font-family: 'DM Sans', sans-serif;
+        }
+        .vpb-inner { max-width: 1100px; margin: 0 auto; }
+        .vpb-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+        }
+        @media (max-width: 900px) { .vpb-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 520px) {
+          .vpb-grid { grid-template-columns: 1fr; }
+          .vpb-section { padding: 40px 20px; }
+        }
+        .vpb-card {
+          background: white;
+          border-radius: 16px;
+          padding: 28px 24px;
+          border: 1px solid #e8edf8;
+          box-shadow: 0 1px 3px rgba(0,0,20,0.06), 0 4px 16px rgba(0,0,40,0.04);
+          transition: transform 0.22s ease, box-shadow 0.22s ease;
+          cursor: default;
+          opacity: 0;
+          transform: translateY(18px);
+          animation: vpb-rise 0.5s ease forwards;
+          position: relative;
+          overflow: hidden;
+        }
+        .vpb-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 4px 12px rgba(0,0,40,0.08), 0 16px 40px rgba(0,0,60,0.08);
+        }
+        .vpb-card:nth-child(1) { animation-delay: 0.05s; }
+        .vpb-card:nth-child(2) { animation-delay: 0.12s; }
+        .vpb-card:nth-child(3) { animation-delay: 0.19s; }
+        .vpb-card:nth-child(4) { animation-delay: 0.26s; }
+        @keyframes vpb-rise {
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .vpb-icon-wrap {
+          width: 48px; height: 48px;
+          border-radius: 12px;
+          display: flex; align-items: center; justify-content: center;
+          margin-bottom: 18px;
+          transition: transform 0.2s ease;
+        }
+        .vpb-card:hover .vpb-icon-wrap { transform: scale(1.08); }
+        .vpb-title {
+          font-family: 'Fraunces', serif;
+          font-weight: 600; font-size: 17px;
+          color: #0f1a2e; margin: 0 0 5px 0;
+          letter-spacing: -0.01em; line-height: 1.3;
+        }
+        .vpb-desc { font-size: 14px; color: #6b7a99; margin: 0; line-height: 1.5; }
+        .vpb-dot {
+          position: absolute; top: 20px; right: 20px;
+          width: 6px; height: 6px; border-radius: 50%; opacity: 0.35;
+        }
+      `}</style>
+
+      <section className="vpb-section">
+        <div className="vpb-inner">
+          <div className="vpb-grid">
+            {values.map((v) => (
+              <div key={v.title} className="vpb-card">
+                <div className="vpb-icon-wrap" style={{ background: v.bg }}>
+                  <v.icon size={22} color={v.accent} />
                 </div>
-                <div>
-                  <div className="font-display font-medium text-slate-900">{v.title}</div>
-                  <div className="text-sm text-slate-600">{v.desc}</div>
-                </div>
+                <div className="vpb-dot" style={{ background: v.accent }} />
+                <p className="vpb-title">{v.title}</p>
+                <p className="vpb-desc">{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
+    </>
+  );
+}
       {/* ===== SERVICES (Bento) ===== */}
       <section id="tjanster" className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12">

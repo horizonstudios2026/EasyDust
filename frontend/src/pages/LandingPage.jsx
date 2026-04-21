@@ -299,23 +299,35 @@ ${form.namn}`;
       </header>
 
       {/* ===== HERO ===== */}
-      <section id="top" className="relative pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <section id="top" className="relative pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden isolate">
+        {/* Full-width background photo */}
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+          <img
+            src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          {/* Soft white overlay – readable text on the left, photo visible on the right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/40 md:from-white md:via-white/80 md:to-white/5" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#FAFAFA]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left: Text */}
             <div className="lg:col-span-7 reveal">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase mb-6" data-testid="hero-badge">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase mb-6 border border-blue-100" data-testid="hero-badge">
                 <Sparkles size={14} /> Stockholms nöjdaste kunder 2024
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-slate-900 leading-[1.05]" data-testid="hero-headline">
                 Skinande rent,<br />
                 <span className="font-medium">utan krångel.</span>
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-xl leading-relaxed" data-testid="hero-subheadline">
+              <p className="mt-6 text-lg md:text-xl text-slate-700 max-w-xl leading-relaxed" data-testid="hero-subheadline">
                 Professionell städning – enkelt, tryggt och prisvärt.
                 Få en <strong className="text-slate-900 font-semibold">kostnadsfri offert på under 30 sekunder</strong>.
               </p>
-              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-600">
+              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-700">
                 <div className="flex items-center gap-2"><ShieldCheck size={18} className="text-blue-600" /> Ansvarsförsäkring</div>
                 <div className="flex items-center gap-2"><Award size={18} className="text-blue-600" /> Kollektivavtal</div>
                 <div className="flex items-center gap-2"><Check size={18} className="text-blue-600" /> Nöjd-kund-garanti</div>
@@ -423,17 +435,6 @@ ${form.namn}`;
                 </div>
               </form>
             </div>
-          </div>
-        </div>
-
-        {/* Hero background image – decorative, right side */}
-        <div className="hidden lg:block absolute top-24 right-0 w-[42%] h-[80%] -z-10 opacity-60 pointer-events-none">
-          <div className="hero-image-wrap w-full h-full">
-            <img
-              src={IMG.hero}
-              alt=""
-              className="w-full h-full object-cover rounded-l-3xl"
-            />
           </div>
         </div>
       </section>

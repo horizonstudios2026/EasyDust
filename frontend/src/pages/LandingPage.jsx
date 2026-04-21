@@ -327,6 +327,7 @@ ${form.namn}`;
               <form
                 id="lead-form"
                 onSubmit={handleSubmit}
+                noValidate
                 className="relative bg-white border border-slate-200/80 rounded-3xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.15)] p-7 md:p-9"
                 data-testid="lead-form"
               >

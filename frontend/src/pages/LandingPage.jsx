@@ -129,7 +129,7 @@ const testimonials = [
   },
   {
     name: "Erik Johansson",
-    role: "VD, Nordic Design AB",
+    role: "Företagsägare",
     image: IMG.person2,
     text:
       "Vi har använt EasyDust för kontorsstäd i två år. Proffsigt, pålitligt och alltid till överenskommet pris.",

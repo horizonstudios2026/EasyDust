@@ -312,8 +312,6 @@ ${form.namn}`;
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left: Text */}
             <div className="lg:col-span-7 reveal">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase mb-6 border border-blue-100" data-testid="hero-badge">
-                <Sparkles size={14} /> Helsingborgs nöjdaste kunder 2024
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-slate-900 leading-[1.05]" data-testid="hero-headline">
                 Skinande rent,<br />

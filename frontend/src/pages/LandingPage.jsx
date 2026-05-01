@@ -47,7 +47,7 @@ const IMG = {
     "https://images.pexels.com/photos/3936894/pexels-photo-3936894.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 };
 
-const EMAIL_TO = "ivicaikica81@gmail.com";
+const EMAIL_TO = "info@easydustab.se";
 const PHONE = "070-712 22 38";
 const PHONE_TEL = "+46707122238";
 

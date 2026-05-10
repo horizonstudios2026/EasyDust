@@ -200,21 +200,33 @@ const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const update = (k, v) => {
-    setForm((f) => ({ ...f, [k]: v }));
-    if (errors[k]) setErrors((e) => ({ ...e, [k]: null }));
-  };
+const update = (k, v) => {
+  let val = v;
+  if (k === "telefon") val = v.replace(/[^\d\s\-+()]/g, "").slice(0, 15);
+  if (k === "postnummer") val = v.replace(/\D/g, "").slice(0, 5);
+  if (k === "kvm") val = v.replace(/[^\d]/g, "").slice(0, 4);
+  setForm((f) => ({ ...f, [k]: val }));
+  if (errors[k]) setErrors((e) => ({ ...e, [k]: null }));
+};
 
 const validate = () => {
   const e = {};
   if (step === 1) {
     if (!form.tjanst) e.tjanst = "Välj en tjänst";
+    if (form.datum) {
+      const year = new Date(form.datum).getFullYear();
+      if (year < 2024 || year > 2099) e.datum = "Ange ett giltigt år (4 siffror)";
+    }
   } else {
     if (!form.namn.trim()) e.namn = "Ange ditt namn";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.epost))
       e.epost = "Ange en giltig e-postadress";
     const digits = form.telefon.replace(/\D/g, "");
-    if (digits.length < 7) e.telefon = "Minst 7 siffror";
+    if (digits.length < 7 || digits.length > 13) e.telefon = "Ange ett giltigt telefonnummer";
+    if (form.postnummer) {
+      const pDigits = form.postnummer.replace(/\D/g, "");
+      if (pDigits.length !== 5) e.postnummer = "Postnummer måste vara 5 siffror";
+    }
   }
   return e;
 };
@@ -361,7 +373,8 @@ ${form.namn}`;
   id="lead-form"
   onSubmit={handleSubmit}
   noValidate
-  className="relative bg-white border border-slate-200/80 rounded-3xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.15)] p-7 md:p-9"
+  className="relative bg-white border border-slate-200/80 rounded-3xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.15)] p-7 md:p-9 flex flex-col"
+  style={{ minHeight: "580px" }}
   data-testid="lead-form"
 >
   <div className="mb-6">
@@ -402,22 +415,58 @@ ${form.namn}`;
           {errors.tjanst && <p className="text-xs text-red-600 mt-1">{errors.tjanst}</p>}
         </div>
 
-        <div>
-          <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Antal kvadratmeter</Label>
-          <Input
-            type="text"
-            value={form.kvm}
-            onChange={(e) => update("kvm", e.target.value)}
-            placeholder="Ex. 85 kvm"
-            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
-          />
-        </div>
+<div>
+  <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Antal kvadratmeter</Label>
+  <div className="relative">
+    <Input
+      type="text"
+      value={form.kvm}
+      onChange={(e) => update("kvm", e.target.value)}
+      placeholder="85"
+      maxLength={4}
+      inputMode="numeric"
+      className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500 pr-12"
+    />
+    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-slate-400 pointer-events-none">kvm</span>
+  </div>
+</div>
 
         <div>
           <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Önskat datum</Label>
           <Input
             type="date"
-            value={form.datum}
+            <div>
+  <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Önskat datum</Label>
+  <div className="relative">
+    <input
+      type="date"
+      value={form.datum}
+      min={new Date().toISOString().split("T")[0]}
+      max="2099-12-31"
+      onChange={(e) => {
+        const val = e.target.value;
+        const year = val ? parseInt(val.split("-")[0], 10) : 0;
+        if (!val || (year >= 2024 && year <= 2099)) update("datum", val);
+      }}
+      onKeyDown={(e) => {
+        // Prevent typing more than 4 digits in year
+        const val = form.datum || "";
+        const yearPart = val.split("-")[0] || "";
+        if (yearPart.length >= 4 && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "Tab" && !e.key.includes("Arrow")) {
+          const cursorInYear = e.target.selectionStart <= 4;
+          if (cursorInYear) e.preventDefault();
+        }
+      }}
+      className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 text-slate-900 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-colors [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+    />
+    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+    </div>
+  </div>
+  {errors.datum && <p className="text-xs text-red-600 mt-1">{errors.datum}</p>}
+</div>
             onChange={(e) => update("datum", e.target.value)}
             className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
           />
@@ -465,18 +514,20 @@ ${form.namn}`;
         </div>
 
         <div>
-          <Label htmlFor="telefon" className="text-sm font-medium text-slate-700 mb-1.5 block">Telefonnummer</Label>
-          <Input
-            id="telefon"
-            type="tel"
-            autoComplete="tel"
-            value={form.telefon}
-            onChange={(e) => update("telefon", e.target.value)}
-            placeholder="070-123 45 67"
-            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
-            data-testid="form-input-telefon"
-          />
-          {errors.telefon && <p className="text-xs text-red-600 mt-1" data-testid="error-telefon">{errors.telefon}</p>}
+  <Label htmlFor="telefon" className="text-sm font-medium text-slate-700 mb-1.5 block">Telefonnummer</Label>
+  <Input
+    id="telefon"
+    type="tel"
+    autoComplete="tel"
+    value={form.telefon}
+    onChange={(e) => update("telefon", e.target.value)}
+    placeholder="070-123 45 67"
+    maxLength={15}
+    inputMode="tel"
+    className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+    data-testid="form-input-telefon"
+  />
+  {errors.telefon && <p className="text-xs text-red-600 mt-1" data-testid="error-telefon">{errors.telefon}</p>}
         </div>
 
         <div>
@@ -494,17 +545,20 @@ ${form.namn}`;
           {errors.epost && <p className="text-xs text-red-600 mt-1" data-testid="error-epost">{errors.epost}</p>}
         </div>
 
-        <div>
-          <Label htmlFor="postnummer" className="text-sm font-medium text-slate-700 mb-1.5 block">Postnummer</Label>
-          <Input
-            id="postnummer"
-            type="text"
-            value={form.postnummer}
-            onChange={(e) => update("postnummer", e.target.value)}
-            placeholder="Ex. 252 24"
-            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
-          />
-        </div>
+<div>
+  <Label htmlFor="postnummer" className="text-sm font-medium text-slate-700 mb-1.5 block">Postnummer</Label>
+  <Input
+    id="postnummer"
+    type="text"
+    value={form.postnummer}
+    onChange={(e) => update("postnummer", e.target.value)}
+    placeholder="Ex. 25224"
+    maxLength={5}
+    inputMode="numeric"
+    className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+  />
+  {errors.postnummer && <p className="text-xs text-red-600 mt-1">{errors.postnummer}</p>}
+</div>
 
         <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} className="hidden" aria-hidden="true" />
 

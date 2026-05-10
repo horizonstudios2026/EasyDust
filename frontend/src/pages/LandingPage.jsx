@@ -4,6 +4,13 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { Label } from "../components/ui/label";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -170,17 +177,25 @@ const faqs = [
 
 function scrollToForm() {
   const el = document.getElementById("lead-form");
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
 }
 
 export default function LandingPage() {
-  const [form, setForm] = useState({
-    namn: "",
-    epost: "",
-    telefon: "",
-    meddelande: "",
-    website: "", // honeypot
-  });
+const [form, setForm] = useState({
+  tjanst: "",
+  kvm: "",
+  datum: "",
+  meddelande: "",
+  namn: "",
+  epost: "",
+  telefon: "",
+  postnummer: "",
+  website: "",
+});
+const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -190,33 +205,48 @@ export default function LandingPage() {
     if (errors[k]) setErrors((e) => ({ ...e, [k]: null }));
   };
 
-  const validate = () => {
-    const e = {};
+const validate = () => {
+  const e = {};
+  if (step === 1) {
+    if (!form.tjanst) e.tjanst = "Välj en tjänst";
+  } else {
     if (!form.namn.trim()) e.namn = "Ange ditt namn";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.epost))
       e.epost = "Ange en giltig e-postadress";
     const digits = form.telefon.replace(/\D/g, "");
     if (digits.length < 7) e.telefon = "Minst 7 siffror";
-    return e;
-  };
+  }
+  return e;
+};
 
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
-    if (form.website) return; // honeypot triggered
-    const e = validate();
-    if (Object.keys(e).length) {
-      setErrors(e);
-      toast.error("Kontrollera fälten", {
-        description: "Vänligen fyll i alla obligatoriska fält korrekt.",
-      });
-      return;
-    }
-    setLoading(true);
+const handleSubmit = (ev) => {
+  ev.preventDefault();
+  if (form.website) return;
+  const e = validate();
+  if (Object.keys(e).length) {
+    setErrors(e);
+    toast.error("Kontrollera fälten", {
+      description: "Vänligen fyll i alla obligatoriska fält korrekt.",
+    });
+    return;
+  }
 
-    const subject = `Ny offertförfrågan från ${form.namn}`;
-    const body = `Hej EasyDust!
+  if (step === 1) {
+    setStep(2);
+    return;
+  }
+
+  setLoading(true);
+
+  const subject = `Ny offertförfrågan från ${form.namn}`;
+  const body = `Hej EasyDust!
 
 Jag skulle vilja få en offert.
+
+Tjänst: ${form.tjanst}
+Antal kvm: ${form.kvm || "–"}
+Önskat datum: ${form.datum || "–"}
+Postnummer: ${form.postnummer || "–"}
 
 Namn: ${form.namn}
 E-post: ${form.epost}
@@ -228,20 +258,18 @@ ${form.meddelande || "(inget meddelande)"}
 Med vänliga hälsningar,
 ${form.namn}`;
 
-    const mailto = `mailto:${EMAIL_TO}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+  const mailto = `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Open mailto link
-    setTimeout(() => {
-      window.location.href = mailto;
-      setLoading(false);
-      toast.success("Tack! Din e-postklient öppnas nu", {
-        description: "Tryck på Skicka i ditt mejlprogram. Vi återkommer inom kort.",
-      });
-      setForm({ namn: "", epost: "", telefon: "", meddelande: "", website: "" });
-    }, 600);
-  };
+  setTimeout(() => {
+    window.location.href = mailto;
+    setLoading(false);
+    toast.success("Tack! Din e-postklient öppnas nu", {
+      description: "Tryck på Skicka i ditt mejlprogram. Vi återkommer inom kort.",
+    });
+    setForm({ tjanst: "", kvm: "", datum: "", meddelande: "", namn: "", epost: "", telefon: "", postnummer: "", website: "" });
+    setStep(1);
+  }, 600);
+};
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-slate-900 font-body overflow-x-hidden">
@@ -329,104 +357,180 @@ ${form.namn}`;
 
             {/* Right: Form */}
             <div className="lg:col-span-5 reveal" style={{ animationDelay: "0.15s" }}>
-              <form
-                id="lead-form"
-                onSubmit={handleSubmit}
-                noValidate
-                className="relative bg-white border border-slate-200/80 rounded-3xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.15)] p-7 md:p-9"
-                data-testid="lead-form"
-              >
-                <div className="mb-6">
-                  <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-2">Kostnadsfri offert</div>
-                  <h2 className="font-display text-2xl md:text-3xl font-medium text-slate-900">Enkel kontakt och snabb service</h2>
-                </div>
+<form
+  id="lead-form"
+  onSubmit={handleSubmit}
+  noValidate
+  className="relative bg-white border border-slate-200/80 rounded-3xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.15)] p-7 md:p-9"
+  data-testid="lead-form"
+>
+  <div className="mb-6">
+    <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-2">Kostnadsfri offert</div>
+    <h2 className="font-display text-2xl md:text-3xl font-medium text-slate-900">Enkel kontakt och snabb service</h2>
+  </div>
 
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="namn" className="text-sm font-medium text-slate-700 mb-1.5 block">Namn</Label>
-                    <Input
-                      id="namn"
-                      type="text"
-                      autoComplete="name"
-                      value={form.namn}
-                      onChange={(e) => update("namn", e.target.value)}
-                      placeholder="Anna Svensson"
-                      className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
-                      data-testid="form-input-namn"
-                    />
-                    {errors.namn && <p className="text-xs text-red-600 mt-1" data-testid="error-namn">{errors.namn}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="epost" className="text-sm font-medium text-slate-700 mb-1.5 block">E-post</Label>
-                    <Input
-                      id="epost"
-                      type="email"
-                      autoComplete="email"
-                      value={form.epost}
-                      onChange={(e) => update("epost", e.target.value)}
-                      placeholder="anna@exempel.se"
-                      className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
-                      data-testid="form-input-epost"
-                    />
-                    {errors.epost && <p className="text-xs text-red-600 mt-1" data-testid="error-epost">{errors.epost}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="telefon" className="text-sm font-medium text-slate-700 mb-1.5 block">Telefonnummer</Label>
-                    <Input
-                      id="telefon"
-                      type="tel"
-                      autoComplete="tel"
-                      value={form.telefon}
-                      onChange={(e) => update("telefon", e.target.value)}
-                      placeholder="070-123 45 67"
-                      className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
-                      data-testid="form-input-telefon"
-                    />
-                    {errors.telefon && <p className="text-xs text-red-600 mt-1" data-testid="error-telefon">{errors.telefon}</p>}
-                  </div>
-                  <div>
-                    <Label htmlFor="meddelande" className="text-sm font-medium text-slate-700 mb-1.5 block">Meddelande <span className="text-slate-400 font-normal">(valfritt)</span></Label>
-                    <Textarea
-                      id="meddelande"
-                      value={form.meddelande}
-                      onChange={(e) => update("meddelande", e.target.value)}
-                      placeholder="Berätta kort om ditt städbehov..."
-                      rows={3}
-                      className="rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500 resize-none"
-                      data-testid="form-input-meddelande"
-                    />
-                  </div>
+  {/* Step indicators */}
+  <div className="flex items-center gap-2 mb-7">
+    {[1, 2].map((s) => (
+      <div key={s} className="flex items-center gap-2">
+        <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${step >= s ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-400"}`}>
+          {step > s ? <Check size={13} /> : s}
+        </div>
+        <span className={`text-xs font-medium ${step === s ? "text-slate-900" : "text-slate-400"}`}>
+          {s === 1 ? "Din städning" : "Dina uppgifter"}
+        </span>
+        {s < 2 && <div className={`w-8 h-px mx-1 ${step > s ? "bg-blue-600" : "bg-slate-200"}`} />}
+      </div>
+    ))}
+  </div>
 
-                  {/* Honeypot */}
-                  <input
-                    type="text"
-                    name="website"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    value={form.website}
-                    onChange={(e) => update("website", e.target.value)}
-                    className="hidden"
-                    aria-hidden="true"
-                  />
+  <div className="space-y-4">
+    {step === 1 ? (
+      <>
+        <div>
+          <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Typ av tjänst <span className="text-red-500">*</span></Label>
+          <Select value={form.tjanst} onValueChange={(v) => update("tjanst", v)}>
+            <SelectTrigger className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+              <SelectValue placeholder="Välj tjänst..." />
+            </SelectTrigger>
+            <SelectContent>
+              {["Hemstäd","Företagsstäd","Flyttstäd","Storstäd","Trapphusstäd","Byggstäd","Fönsterputs","Visningsstädning"].map((t) => (
+                <SelectItem key={t} value={t}>{t}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {errors.tjanst && <p className="text-xs text-red-600 mt-1">{errors.tjanst}</p>}
+        </div>
 
-                  <Button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full h-13 py-4 mt-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary disabled:opacity-70"
-                    data-testid="form-submit-button"
-                  >
-                    {loading ? "Skickar..." : (
-                      <span className="inline-flex items-center gap-2">Få offert <ArrowRight size={18} /></span>
-                    )}
-                  </Button>
+        <div>
+          <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Antal kvadratmeter</Label>
+          <Input
+            type="text"
+            value={form.kvm}
+            onChange={(e) => update("kvm", e.target.value)}
+            placeholder="Ex. 85 kvm"
+            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+          />
+        </div>
 
-                  <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-2 text-xs text-slate-500">
-                    <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
-                    <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
-                    <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
-                  </div>
-                </div>
-              </form>
+        <div>
+          <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Önskat datum</Label>
+          <Input
+            type="date"
+            value={form.datum}
+            onChange={(e) => update("datum", e.target.value)}
+            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Meddelande / Övrig information</Label>
+          <Textarea
+            value={form.meddelande}
+            onChange={(e) => update("meddelande", e.target.value)}
+            placeholder="Beskriv gärna dina önskemål..."
+            rows={3}
+            className="rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500 resize-none"
+          />
+        </div>
+
+        <Button
+          type="submit"
+          className="w-full h-13 py-4 mt-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary"
+        >
+          <span className="inline-flex items-center gap-2">Nästa steg <ArrowRight size={18} /></span>
+        </Button>
+
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-2 text-xs text-slate-500">
+          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
+          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
+          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
+        </div>
+      </>
+    ) : (
+      <>
+        <div>
+          <Label htmlFor="namn" className="text-sm font-medium text-slate-700 mb-1.5 block">Namn</Label>
+          <Input
+            id="namn"
+            type="text"
+            autoComplete="name"
+            value={form.namn}
+            onChange={(e) => update("namn", e.target.value)}
+            placeholder="Anna Svensson"
+            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+            data-testid="form-input-namn"
+          />
+          {errors.namn && <p className="text-xs text-red-600 mt-1" data-testid="error-namn">{errors.namn}</p>}
+        </div>
+
+        <div>
+          <Label htmlFor="telefon" className="text-sm font-medium text-slate-700 mb-1.5 block">Telefonnummer</Label>
+          <Input
+            id="telefon"
+            type="tel"
+            autoComplete="tel"
+            value={form.telefon}
+            onChange={(e) => update("telefon", e.target.value)}
+            placeholder="070-123 45 67"
+            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+            data-testid="form-input-telefon"
+          />
+          {errors.telefon && <p className="text-xs text-red-600 mt-1" data-testid="error-telefon">{errors.telefon}</p>}
+        </div>
+
+        <div>
+          <Label htmlFor="epost" className="text-sm font-medium text-slate-700 mb-1.5 block">E-post</Label>
+          <Input
+            id="epost"
+            type="email"
+            autoComplete="email"
+            value={form.epost}
+            onChange={(e) => update("epost", e.target.value)}
+            placeholder="anna@exempel.se"
+            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+            data-testid="form-input-epost"
+          />
+          {errors.epost && <p className="text-xs text-red-600 mt-1" data-testid="error-epost">{errors.epost}</p>}
+        </div>
+
+        <div>
+          <Label htmlFor="postnummer" className="text-sm font-medium text-slate-700 mb-1.5 block">Postnummer</Label>
+          <Input
+            id="postnummer"
+            type="text"
+            value={form.postnummer}
+            onChange={(e) => update("postnummer", e.target.value)}
+            placeholder="Ex. 252 24"
+            className="h-12 rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+          />
+        </div>
+
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} className="hidden" aria-hidden="true" />
+
+        <div className="flex gap-3 mt-2">
+          <Button
+            type="button"
+            onClick={() => setStep(1)}
+            className="h-13 py-4 px-5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-base"
+          >
+            Tillbaka
+          </Button>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="flex-1 h-13 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary disabled:opacity-70"
+            data-testid="form-submit-button"
+          >
+            {loading ? "Skickar..." : (
+              <span className="inline-flex items-center gap-2">Skicka offert <ArrowRight size={18} /></span>
+            )}
+          </Button>
+        </div>
+      </>
+    )}
+  </div>
+</form>
             </div>
           </div>
         </div>

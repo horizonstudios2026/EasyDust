@@ -392,7 +392,7 @@ ${form.namn}`;
 >
   <div className="mb-6">
     <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-2">Kostnadsfri offert</div>
-    <h2 className="font-display text-2xl md:text-3xl font-medium text-slate-900">Enkel kontakt och snabb service</h2>
+    <h2 className="font-display text-2xl md:text-3xl font-medium text-slate-900">Enkel kontakt och service</h2>
   </div>
 
   {/* Step indicators */}

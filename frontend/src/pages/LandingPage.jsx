@@ -305,10 +305,10 @@ ${form.namn}`;
             Easy<span className="text-blue-600">Dust</span>
           </a>
           <nav className="hidden md:flex items-center gap-10 text-sm text-slate-600">
-            <a href="#tjanster" className="hover:text-slate-900 transition-colors" data-testid="nav-services">Tjänster</a>
-            <a href="#omdomen" className="hover:text-slate-900 transition-colors" data-testid="nav-testimonials">Omdömen</a>
-            <a href="#faq" className="hover:text-slate-900 transition-colors" data-testid="nav-faq">FAQ</a>
-            <a href="#kontakt" className="hover:text-slate-900 transition-colors" data-testid="nav-contact">Kontakt</a>
+            <button onClick={() => { document.getElementById("tjanster")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-slate-900 transition-colors" data-testid="nav-services">Tjänster</button>
+            <button onClick={() => { document.getElementById("omdomen")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-slate-900 transition-colors" data-testid="nav-testimonials">Omdömen</button>
+            <button onClick={() => { document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-slate-900 transition-colors" data-testid="nav-faq">FAQ</button>
+            <button onClick={() => { document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" }); }} className="hover:text-slate-900 transition-colors" data-testid="nav-contact">Kontakt</button>
           </nav>
           <div className="flex items-center gap-3">
             <Button
@@ -331,10 +331,10 @@ ${form.namn}`;
         {mobileOpen && (
           <div className="md:hidden border-t border-slate-200/60 bg-white">
             <div className="px-6 py-4 flex flex-col gap-4 text-slate-700">
-              <a href="#tjanster" onClick={() => setMobileOpen(false)}>Tjänster</a>
-              <a href="#omdomen" onClick={() => setMobileOpen(false)}>Omdömen</a>
-              <a href="#faq" onClick={() => setMobileOpen(false)}>FAQ</a>
-              <a href="#kontakt" onClick={() => setMobileOpen(false)}>Kontakt</a>
+              <button onClick={() => { document.getElementById("tjanster")?.scrollIntoView({ behavior: "smooth" }); setMobileOpen(false); }}>Tjänster</button>
+              <button onClick={() => { document.getElementById("omdomen")?.scrollIntoView({ behavior: "smooth" }); setMobileOpen(false); }}>Omdömen</button>
+              <button onClick={() => { document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" }); setMobileOpen(false); }}>FAQ</button>
+              <button onClick={() => { document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" }); setMobileOpen(false); }}>Kontakt</button>
               <Button
                 onClick={() => { scrollToForm(); setMobileOpen(false); }}
                 className="bg-blue-600 hover:bg-blue-700 text-white rounded-full h-11 w-full"
@@ -624,7 +624,7 @@ ${form.namn}`;
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-14">
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { icon: Clock, title: "Snabb bokning", desc: "Enkel kontakt och snabb service", accent: "#2563eb", bg: "rgba(37,99,235,0.08)" },
+              { icon: Clock, title: "Snabb bokning", desc: "Enkel kontakt och service", accent: "#2563eb", bg: "rgba(37,99,235,0.08)" },
               { icon: Award, title: "Erfarna städare", desc: "Utbildad personal", accent: "#0891b2", bg: "rgba(8,145,178,0.08)" },
               { icon: ShieldCheck, title: "Fullt försäkrat", desc: "Kollektivavtal & försäkring", accent: "#059669", bg: "rgba(5,150,105,0.08)" },
               { icon: Check, title: "Flexibla tider", desc: "Kvällar & helger möjligt", accent: "#7c3aed", bg: "rgba(124,58,237,0.08)" },

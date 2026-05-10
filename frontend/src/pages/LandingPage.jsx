@@ -500,17 +500,18 @@ ${form.namn}`;
           />
         </div>
 
-        <Button
-          type="submit"
-          className="w-full h-13 py-4 mt-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary"
-        >
-          <span className="inline-flex items-center gap-2">Nästa steg <ArrowRight size={18} /></span>
-        </Button>
-
-        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-2 text-xs text-slate-500">
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
+        <div className="mt-2">
+          <Button
+            type="submit"
+            className="w-full h-13 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary"
+          >
+            <span className="inline-flex items-center gap-2">Nästa steg <ArrowRight size={18} /></span>
+          </Button>
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-3 text-xs text-slate-500">
+            <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
+            <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
+            <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
+          </div>
         </div>
       </>
     ) : (
@@ -581,30 +582,31 @@ ${form.namn}`;
         
         <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} className="hidden" aria-hidden="true" />
         
-        <div className="flex gap-3 mt-2">
-          <Button
-            type="button"
-            onClick={() => setStep(1)}
-            className="h-13 py-4 px-5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-base"
-          >
-            Tillbaka
-          </Button>
-          <Button
-            type="submit"
-            disabled={loading}
-            className="flex-1 h-13 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary disabled:opacity-70"
-            data-testid="form-submit-button"
-          >
-            {loading ? "Skickar..." : (
-              <span className="inline-flex items-center gap-2">Skicka offert <ArrowRight size={18} /></span>
-            )}
-          </Button>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-2 text-xs text-slate-500">
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
+        <div className="mt-2">
+          <div className="flex gap-3">
+            <Button
+              type="button"
+              onClick={() => setStep(1)}
+              className="h-13 py-4 px-5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-base"
+            >
+              Tillbaka
+            </Button>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="flex-1 h-13 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary disabled:opacity-70"
+              data-testid="form-submit-button"
+            >
+              {loading ? "Skickar..." : (
+                <span className="inline-flex items-center gap-2">Skicka offert <ArrowRight size={18} /></span>
+              )}
+            </Button>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-3 text-xs text-slate-500">
+            <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
+            <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
+            <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
+          </div>
         </div>
       </>
     )}

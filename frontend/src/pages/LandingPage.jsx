@@ -318,7 +318,7 @@ ${form.namn}`;
               </h1>
               <p className="mt-6 text-lg md:text-xl text-slate-700 max-w-xl leading-relaxed" data-testid="hero-subheadline">
                 Professionell städning – enkelt, tryggt och prisvärt.
-                Få en <strong className="text-slate-900 font-semibold">kostnadsfri offert på under 30 sekunder</strong>.
+                Begär en <strong className="text-slate-900 font-semibold">kostnadsfri offert idag</strong>.
               </p>
               <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-700">
                 <div className="flex items-center gap-2"><ShieldCheck size={18} className="text-blue-600" /> Ansvarsförsäkring</div>
@@ -523,7 +523,7 @@ ${form.namn}`;
             Redo för ett <span className="font-medium text-blue-400">skinande</span><br />rent hem?
           </h2>
           <p className="mt-6 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
-            Fyll i formuläret och få en kostnadsfri offert. Vi återkommer inom så snabbt som möjligt.
+            Fyll i formuläret och få en kostnadsfri offert. Vi återkommer så snabbt som möjligt.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button

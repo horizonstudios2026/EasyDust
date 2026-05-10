@@ -410,9 +410,10 @@ ${form.namn}`;
     ))}
   </div>
 
-  <div className="space-y-4 flex flex-col flex-1">
+  <div className="flex flex-col flex-1 justify-between">
     {step === 1 ? (
       <>
+        <div className="flex flex-col gap-4">
         <div>
           <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Typ av tjänst <span className="text-red-500">*</span></Label>
           <Select value={form.tjanst} onValueChange={(v) => update("tjanst", v)}>
@@ -499,8 +500,9 @@ ${form.namn}`;
             className="rounded-xl border-slate-200 bg-slate-50/70 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500 resize-none"
           />
         </div>
+        </div>
 
-        <div className="mt-2">
+        <div>
           <Button
             type="submit"
             className="w-full h-13 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base btn-primary"
@@ -516,6 +518,7 @@ ${form.namn}`;
       </>
     ) : (
       <>
+        <div className="flex flex-col gap-4">
         <div>
           <Label htmlFor="namn" className="text-sm font-medium text-slate-700 mb-1.5 block">Namn</Label>
           <Input
@@ -579,10 +582,9 @@ ${form.namn}`;
 </div>
 
         <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} className="hidden" aria-hidden="true" />
-        
-        <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} className="hidden" aria-hidden="true" />
-        
-        <div className="mt-2">
+        </div>
+
+        <div>
           <div className="flex gap-3">
             <Button
               type="button"

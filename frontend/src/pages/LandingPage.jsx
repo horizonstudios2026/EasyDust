@@ -3,6 +3,10 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { Label } from "../components/ui/label";
+import { DayPicker } from "react-day-picker";
+import { format } from "date-fns";
+import { sv } from "date-fns/locale";
+import "react-day-picker/dist/style.css";
 import {
   Select,
   SelectContent,
@@ -199,6 +203,15 @@ const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  React.useEffect(() => {
+  if (!calendarOpen) return;
+  const handle = (e) => {
+    if (!e.target.closest("#datum-picker")) setCalendarOpen(false);
+  };
+  document.addEventListener("mousedown", handle);
+  return () => document.removeEventListener("mousedown", handle);
+}, [calendarOpen]);
 
 const update = (k, v) => {
   let val = v;
@@ -431,35 +444,48 @@ ${form.namn}`;
   </div>
 </div>
 
-        <div>
+        <div className="relative" id="datum-picker">
           <Label className="text-sm font-medium text-slate-700 mb-1.5 block">Önskat datum</Label>
-          <div className="relative">
-            <input
-              type="date"
-              value={form.datum}
-              min={new Date().toISOString().split("T")[0]}
-              max="2099-12-31"
-              onChange={(e) => {
-                const val = e.target.value;
-                const year = val ? parseInt(val.split("-")[0], 10) : 0;
-                if (!val || (year >= 2024 && year <= 2099)) update("datum", val);
-              }}
-              onKeyDown={(e) => {
-                const val = form.datum || "";
-                const yearPart = val.split("-")[0] || "";
-                if (yearPart.length >= 4 && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "Tab" && !e.key.includes("Arrow")) {
-                  const cursorInYear = e.target.selectionStart <= 4;
-                  if (cursorInYear) e.preventDefault();
-                }
-              }}
-              className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 text-slate-900 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-colors [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-            />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
+          <button
+            type="button"
+            onClick={() => setCalendarOpen((o) => !o)}
+            className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 text-left text-sm text-slate-900 flex items-center justify-between hover:bg-white hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors"
+          >
+            <span className={form.datum ? "text-slate-900" : "text-slate-400"}>
+              {form.datum ? format(new Date(form.datum), "d MMMM yyyy", { locale: sv }) : "Välj datum..."}
+            </span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </button>
+
+          {calendarOpen && (
+            <div className="absolute z-50 mt-2 left-0 right-0 bg-white border border-slate-200 rounded-2xl shadow-xl p-3">
+              <style>{`
+                .rdp { --rdp-accent-color: #2563eb; --rdp-background-color: #eff6ff; margin: 0; }
+                .rdp-day_selected { background-color: #2563eb !important; color: white !important; border-radius: 8px; }
+                .rdp-day:hover:not(.rdp-day_selected) { background-color: #eff6ff; border-radius: 8px; }
+                .rdp-button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+                .rdp-head_cell { font-size: 0.75rem; color: #94a3b8; font-weight: 500; }
+                .rdp-caption_label { font-size: 0.9rem; font-weight: 600; color: #0f172a; }
+                .rdp-nav_button { border-radius: 8px; }
+                .rdp-day { border-radius: 8px; font-size: 0.85rem; }
+              `}</style>
+              <DayPicker
+                mode="single"
+                locale={sv}
+                selected={form.datum ? new Date(form.datum) : undefined}
+                onSelect={(date) => {
+                  if (date) {
+                    update("datum", format(date, "yyyy-MM-dd"));
+                    setCalendarOpen(false);
+                  }
+                }}
+                disabled={{ before: new Date() }}
+                showOutsideDays
+              />
             </div>
-          </div>
+          )}
           {errors.datum && <p className="text-xs text-red-600 mt-1">{errors.datum}</p>}
         </div>
         

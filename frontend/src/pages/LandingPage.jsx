@@ -502,9 +502,12 @@ ${form.namn}`;
                     <p className="text-[13px] leading-snug text-slate-600 mb-3 flex-1">
                       {s.desc}
                     </p>
-                    <div className="flex items-center justify-between pt-2.5 border-t border-slate-100">
-                      <span className="text-sm font-semibold text-blue-600">{s.price}</span>
-                      <ArrowRight size={14} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+                    <div
+  className="flex items-center justify-between pt-2.5 border-t border-slate-100 cursor-pointer"
+  onClick={scrollToForm}
+>
+  <span className="text-sm font-semibold text-blue-600">{s.price}</span>
+  <ArrowRight size={14} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
                     </div>
                   </div>
                 </div>

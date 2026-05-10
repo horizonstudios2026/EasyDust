@@ -121,8 +121,8 @@ const services = [
 const testimonials = [
   {
     name: "Anna Lindström",
-    role: "Kund sedan 2022",
-    image: IMG.person1,
+    role: "Kund Hemstäd",
+    image: null,
     text:
       "Fantastisk service! Städarna är alltid på tid, noggranna och otroligt trevliga. Hemmet har aldrig varit renare.",
     stars: 5,
@@ -130,14 +130,14 @@ const testimonials = [
   {
     name: "Erik Johansson",
     role: "Företagsägare",
-    image: IMG.person2,
+    image: null,
     text:
       "Vi har använt EasyDust för kontorsstäd i två år. Proffsigt, pålitligt och alltid till överenskommet pris.",
     stars: 5,
   },
   {
     name: "Sofia Bergström",
-    role: "Flyttstäd",
+    role: "Kund Flyttstäd",
     image: null,
     text:
       "Flyttstäden blev godkänd direkt av mäklaren. Stressfritt och värt varenda krona. Kan varmt rekommendera.",
@@ -152,7 +152,7 @@ const faqs = [
   },
   {
     q: "Hur bokar jag?",
-    a: "Fyll i formuläret här på sidan så återkommer vi inom 2 timmar med en kostnadsfri offert. Du kan också ringa oss direkt på 070-712 22 38.",
+    a: "Fyll i formuläret här på sidan så återkommer vi snabbt med en kostnadsfri offert. Du kan också ringa oss direkt på 070-712 22 38.",
   },
   {
     q: "Tar ni med eget material?",
@@ -338,7 +338,7 @@ ${form.namn}`;
               >
                 <div className="mb-6">
                   <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-2">Kostnadsfri offert</div>
-                  <h2 className="font-display text-2xl md:text-3xl font-medium text-slate-900">Få svar på under 2 timmar</h2>
+                  <h2 className="font-display text-2xl md:text-3xl font-medium text-slate-900">Enkel kontakt och snabb service</h2>
                 </div>
 
                 <div className="space-y-4">
@@ -437,7 +437,7 @@ ${form.namn}`;
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-14">
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { icon: Clock, title: "Snabb bokning", desc: "Svar inom 2 timmar", accent: "#2563eb", bg: "rgba(37,99,235,0.08)" },
+              { icon: Clock, title: "Snabb bokning", desc: "Enkel kontakt och snabb service", accent: "#2563eb", bg: "rgba(37,99,235,0.08)" },
               { icon: Award, title: "Erfarna städare", desc: "Utbildad personal", accent: "#0891b2", bg: "rgba(8,145,178,0.08)" },
               { icon: ShieldCheck, title: "Fullt försäkrat", desc: "Kollektivavtal & försäkring", accent: "#059669", bg: "rgba(5,150,105,0.08)" },
               { icon: Check, title: "Flexibla tider", desc: "Kvällar & helger möjligt", accent: "#7c3aed", bg: "rgba(124,58,237,0.08)" },
@@ -523,7 +523,7 @@ ${form.namn}`;
             Redo för ett <span className="font-medium text-blue-400">skinande</span><br />rent hem?
           </h2>
           <p className="mt-6 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
-            Fyll i formuläret och få en kostnadsfri offert. Vi återkommer inom 2 timmar.
+            Fyll i formuläret och få en kostnadsfri offert. Vi återkommer inom så snabbt som möjligt.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button
@@ -550,7 +550,7 @@ ${form.namn}`;
           <div className="mb-14 md:mb-20">
             <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-3">Vad våra kunder säger</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 tracking-tight" data-testid="testimonials-heading">
-              Över <span className="font-medium">2 400</span> nöjda kunder.
+              Fler och fler kunder väljer EasyDust för <span className="font-medium">trygg och noggrann</span> städning. 
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6 md:gap-8">
@@ -659,7 +659,7 @@ ${form.namn}`;
                 </Button>
               </div>
               <div className="mt-12 pt-6 border-t border-white/10 text-xs text-slate-500 flex flex-wrap gap-x-6 gap-y-2">
-                <span>© {new Date().getFullYear()} Smakrull AB</span>
+                <span>© {new Date().getFullYear()} EasyDust AB</span>
                 <span>Org.nr 559503-5345</span>
                 <span>Helsingborg, Sverige</span>
               </div>

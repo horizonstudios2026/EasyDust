@@ -387,7 +387,7 @@ ${form.namn}`;
   onSubmit={handleSubmit}
   noValidate
   className="relative bg-white border border-slate-200/80 rounded-3xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.15)] p-7 md:p-9 flex flex-col"
-  style={{ minHeight: "640px" }}
+  style={{ height: "740px" }}
   data-testid="lead-form"
 >
   <div className="mb-6">
@@ -410,7 +410,7 @@ ${form.namn}`;
     ))}
   </div>
 
-  <div className="space-y-4 flex-1" style={{ minHeight: "420px" }}>
+  <div className="space-y-4 flex flex-col flex-1">
     {step === 1 ? (
       <>
         <div>
@@ -583,7 +583,6 @@ ${form.namn}`;
           <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
           <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
         </div>
-        
         <div className="flex gap-3 mt-2">
           <Button
             type="button"

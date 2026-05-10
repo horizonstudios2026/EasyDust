@@ -578,11 +578,9 @@ ${form.namn}`;
 </div>
 
         <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} className="hidden" aria-hidden="true" />
-        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-2 text-xs text-slate-500">
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
-          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
-        </div>
+        
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} className="hidden" aria-hidden="true" />
+        
         <div className="flex gap-3 mt-2">
           <Button
             type="button"
@@ -601,6 +599,12 @@ ${form.namn}`;
               <span className="inline-flex items-center gap-2">Skicka offert <ArrowRight size={18} /></span>
             )}
           </Button>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-2 text-xs text-slate-500">
+          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Snabb återkoppling</span>
+          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Helt kostnadsfritt</span>
+          <span className="inline-flex items-center gap-1.5"><Check size={14} className="text-blue-600" /> Ingen bindning</span>
         </div>
       </>
     )}
